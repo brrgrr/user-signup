@@ -2,46 +2,22 @@
 <html lang="en">
 
 <head>
+    <title>{{title}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="@BrrGrr">
-    <title>User Signup</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #efefef;
-            font-family: monospace;
-        }
-
-        .blockwrapper {
+        .body {
             background-color: #F0DC82;
             color: #032476;
-            margin: 1em auto;
-            border: 3px solid;
-            padding: 0 3em 2em;
-            width: 480px;
-            border-radius: 1em;
-            box-shadow: .25em .25em .5em 1px rgba(0, 0, 0, .67);
         }
-
-        table {
-            width: 100%;
-        }
-
-        label {
-            font-weight: bold;
-            font-size: 1.05em;
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-        }
-
+        /*
         input[type="submit"] {
             margin: 2em auto 0;
             box-shadow: 2px 3px 1px 1px rgba(0, 0, 0, .75);
@@ -52,13 +28,15 @@
             width: 100px;
             line-height: 2em;
         }
-
+        */
+        /*
         input[type="submit"]:active {
             position: relative;
             top: 1px;
             left: 2px;
             box-shadow: -1px -1px 0px 0px rgba(0, 0, 0, .5);
         }
+        */
 
         .error {
             color: red;
@@ -67,10 +45,11 @@
     </style>
 </head>
 
-<body>
-    <div class="blockwrapper">
-        {% block content %} {% endblock %}
+<body class="body">
+    <div class="container">
+        <h1>{{title}}</h1>
     </div>
+    {% block content %}{% endblock %}
 </body>
 
 </html>
