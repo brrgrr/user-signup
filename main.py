@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template
 import string
+import re
 
 app = Flask(__name__)
 
@@ -20,16 +21,12 @@ def index():
     )
 
 
-def is_valid_length(text):
-    return (len(text) >= 3 and len(text) <= 20)
+def is_valid(text):
+    return re.search(r'(^[^\s]{3,20}$)', text)
 
 
-def contains_space(text):
-    try:
-        text.index(' ')
-        return True
-    except ValueError:
-        return False
+def is_valid_email(text):
+    return (is_valid(text) and re.search(r'^[^\s@\.]+@[^\s@\.]+\.[^\s@\.]+$', text))
 
 
 @app.route('/', methods=['POST'])
@@ -45,21 +42,20 @@ def validate_signup():
     email_err = ''
 
     # Username validation
-    if not (is_valid_length(username) and username.isalnum()):
-        username_err = 'Invalid username. Must be 3-20 alphanumeric characters, with no spaces.'
+    if not is_valid(username):
+        username_err = 'Username is not valid. Must be 3-20 characters, no white space.'
 
     # Password validation
-    if not is_valid_length(password):
-        password_err = 'Invalid password. Must be 3-20 characters.'
+    if not is_valid(password):
+        password_err = 'Password is not valid. Must be 3-20 characters, no white space.'
 
     # Password verification
-    if not (password == verify):
+    if not password == verify:
         verify_err = 'Passwords do not match.'
 
     # Email validation
-    if email:
-        if not (email.count('@') == 1 and email.count('.') == 1 and not contains_space(email) and is_valid_length(email)):
-            email_err = 'Invalid email address.'
+    if not is_valid_email(email):
+        email_err = 'Email address is not valid. Must be 3-20 characters, no white space, and include "@" and "."'
 
     if not username_err and not password_err and not verify_err and not email_err:
         # Success
